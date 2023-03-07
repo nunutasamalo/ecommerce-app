@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProductController extends Controller
 {
@@ -15,6 +19,8 @@ class ProductController extends Controller
     {
         //
         $products = Product::all();
+
+        dd($products);
         return view('products.index', compact('products'));
     }
 
@@ -29,9 +35,35 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
-        //
+
+        // $image = $request->image;
+
+        // if ($request->hasFile('image')) {
+
+        //     $imageName = Hash::make($image);
+        //     // $image = $image->storeAs('images', $imageName);
+        //     $image= Storage::put($imageName, $image, 'public');
+        // }
+
+      
+        $image_path = $request->file('image')->store('images', 'public');
+
+
+
+
+
+
+        product::create([
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'price' => $request->price,
+            'description' => $request->description,
+            'image' => $image_path
+        ]);
+
+        return redirect('categories');
     }
 
     /**
@@ -39,7 +71,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+
     }
 
     /**

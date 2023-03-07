@@ -5,13 +5,15 @@
 
 @section('content')
     <h1>Categories</h1>
+
+
     <ul>
         @foreach ($categories as $category)
             <li>{{ $category->name }}</li>
             <ul>
                 @foreach ($category->products as $product)
 
-                    <li>{{ $product->name. "  ". $product->price }}</li>
+                    <li>{{$product->name}}</li>
 
                 @endforeach
             </ul>

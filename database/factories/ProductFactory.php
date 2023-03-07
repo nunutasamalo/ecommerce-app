@@ -22,13 +22,13 @@ class ProductFactory extends Factory
 
         return [
             'name' => $this->faker->word,
-            'description' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
             'price' => $this->faker->numberBetween(10, 100),
             'image' => $this->faker->imageUrl(),
             'category_id' => $category->id,
         ];
 
-       
+
 
     }
 }
